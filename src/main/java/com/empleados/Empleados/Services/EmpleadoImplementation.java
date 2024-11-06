@@ -47,13 +47,11 @@ public class EmpleadoImplementation implements EmpleadoService {
     }
 
 
-@RabbitListener(queues = "user.queue")
+@RabbitListener(queues = "user")
 public void queueMessage(UserRequest userRequest){
-    System.out.println("hellooooooo!!!!!");
     User newUser = new User(userRequest.nombre(), userRequest.estado(), userRequest.edad(),
-            userRequest.salarioDiario() * userRequest.diasTrabajados());
+            (userRequest.salarioDiario() * userRequest.diasTrabajados()));
 
-    System.out.println(newUser);
     empleadoRepository.save(newUser);
     }
 
